@@ -1,185 +1,44 @@
+# ImgHub Cloud — bilingual photo-sharing website
 
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#111827">
-  <title>Photoshop — Share your moments</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script defer src="app.js"></script>
-</head>
-<body>
-  <header class="topbar">
-    <a class="brand" href="#" id="homeLink">
-      <span class="brand-mark">P</span> Photoshop
-    </a>
-    <nav class="nav">
-      <button class="nav-btn active" data-view="feed">Explore</button>
-      <button class="nav-btn" data-view="profile">My profile</button>
-    </nav>
-    <div class="account-area">
-      <span id="userLabel" class="user-label">Guest</span>
-      <button id="authOpen" class="button button-light">Sign in</button>
-      <button id="signOutBtn" class="button button-quiet hidden">Sign out</button>
-    </div>
-  </header>
+Includes:
+- English/Vietnamese language switch
+- Supabase Auth (email/password)
+- Shared cloud database and public gallery
+- Upload images to shared Supabase Storage
+- Post title, description, category, tags, author display name, visibility, album and chosen display date (including past dates)
+- Edit/delete own posts; public visitors can view public posts
+- Responsive dark UI
 
-  <main class="layout">
-    <aside class="side-card intro-card">
-      <div class="profile-orb">P</div>
-      <h2>Make moments visible.</h2>
-      <p>Share photos, discover creators, and keep your favorite moments in one place.</p>
-      <button id="newPostSide" class="button button-primary full">＋ Create a post</button>
-      <div class="side-note">
-        <span class="status-dot"></span> Community photo feed
-      </div>
-    </aside>
+## Important
+This is a starter project, not yet connected to your domain or cloud account. You must configure Supabase and deploy the files. Do not put a Supabase `service_role` secret in `index.html`. The browser uses only the project's publishable/anon key; access is protected by Row Level Security policies in `schema.sql`.
 
-    <section class="content">
-      <section id="setupNotice" class="notice hidden">
-        <h2>One-time setup needed</h2>
-        <p>Add your Supabase project URL and publishable/anon key in <code>app.js</code>, run <code>database.sql</code> in Supabase SQL Editor, and create a public storage bucket named <code>post-images</code>.</p>
-        <p class="small">Never put a Supabase <code>service_role</code> key in browser code.</p>
-      </section>
+## 1. Create the shared backend
+1. Create a project at https://supabase.com/
+2. Open SQL Editor, paste all of `schema.sql`, and run it.
+3. In Project Settings > API (or Connect), copy the Project URL and publishable/anon key.
+4. Open `index.html` and replace:
+   - `YOUR_SUPABASE_PROJECT_URL`
+   - `YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY`
+5. In Supabase Authentication settings, configure your Site URL and Redirect URLs for your final domain, e.g. `https://yourdomain.com` and `https://www.yourdomain.com`.
+6. For email/password signup, configure email confirmation settings and SMTP as appropriate. Test signup and sign-in.
 
-      <section id="feedView" class="view">
-        <div class="page-heading">
-          <div>
-            <p class="eyebrow">COMMUNITY</p>
-            <h1>Explore photos</h1>
-            <p class="muted">Fresh perspectives from the community.</p>
-          </div>
-          <button id="newPostTop" class="button button-primary">＋ Create post</button>
-        </div>
+## 2. Deploy and connect your existing domain
+Recommended: Cloudflare Pages, Netlify, or Vercel static hosting.
+- Upload/deploy `index.html` as the site entry point. Keep `schema.sql` private or outside the public web root after setup.
+- Add your domain in the hosting provider's Domains section.
+- Follow the provider's exact DNS instructions at your domain registrar. DNS values differ by provider; do not guess them.
+- Enable HTTPS/SSL in the host and wait for DNS propagation.
+- Add both apex and `www` domain URLs to Supabase Auth URL configuration if you use both.
 
-        <div class="toolbar">
-          <label class="searchbox">
-            <span>⌕</span>
-            <input id="searchInput" type="search" placeholder="Search captions or creators…">
-          </label>
-          <select id="sortSelect" aria-label="Sort posts">
-            <option value="newest">Newest first</option>
-            <option value="oldest">Oldest first</option>
-          </select>
-        </div>
+## 3. Test before announcing
+- Open the domain in a private/incognito window and confirm public posts display.
+- Create two separate user accounts and verify each can edit/delete only their own posts.
+- Verify uploads work and past display dates render as selected.
+- Confirm backups and account email settings.
+- Set storage quotas, abuse controls, moderation/reporting, rate limits and privacy policy before a large public launch.
 
-        <div id="feedStatus" class="muted status-line">Loading posts…</div>
-        <div id="postGrid" class="post-grid"></div>
-      </section>
-
-      <section id="profileView" class="view hidden">
-        <div class="page-heading">
-          <div>
-            <p class="eyebrow">YOUR SPACE</p>
-            <h1>My profile</h1>
-            <p class="muted">Your profile and published photos.</p>
-          </div>
-          <button id="profileEditBtn" class="button button-light">Edit profile</button>
-        </div>
-        <div id="profileHeader" class="profile-header"></div>
-        <div class="section-title">
-          <h2>Your posts</h2>
-          <span id="myPostCount" class="muted">0 posts</span>
-        </div>
-        <div id="myPostGrid" class="post-grid"></div>
-        <div id="profileEmpty" class="empty-state hidden">
-          <div class="empty-icon">▧</div>
-          <h3>Nothing here yet</h3>
-          <p>Create your first post to start your gallery.</p>
-          <button class="button button-primary" id="emptyCreateBtn">Create a post</button>
-        </div>
-      </section>
-
-      <section id="detailView" class="view hidden">
-        <button id="backToFeed" class="back-link">← Back</button>
-        <div id="detailContent"></div>
-      </section>
-    </section>
-  </main>
-
-  <dialog id="authDialog" class="modal">
-    <form method="dialog" class="modal-close-row">
-      <button class="icon-button" aria-label="Close">×</button>
-    </form>
-    <div class="modal-inner">
-      <div class="modal-logo">P</div>
-      <p class="eyebrow">WELCOME TO PHOTOSHOP</p>
-      <h2 id="authTitle">Sign in</h2>
-      <p class="muted" id="authSubtitle">Sign in to share photos with the community.</p>
-      <form id="authForm" class="stack">
-        <label>Email address
-          <input id="authEmail" type="email" autocomplete="email" required placeholder="you@example.com">
-        </label>
-        <label>Password
-          <input id="authPassword" type="password" autocomplete="current-password" minlength="6" required placeholder="At least 6 characters">
-        </label>
-        <label id="displayNameWrap" class="hidden">Display name
-          <input id="displayName" type="text" maxlength="40" placeholder="Your name">
-        </label>
-        <button id="authSubmit" class="button button-primary full" type="submit">Sign in</button>
-      </form>
-      <p class="switch-line">
-        <span id="switchPrompt">New here?</span>
-        <button id="authSwitch" class="text-button" type="button">Create account</button>
-      </p>
-      <p id="authMessage" class="form-message" role="status"></p>
-    </div>
-  </dialog>
-
-  <dialog id="postDialog" class="modal">
-    <form method="dialog" class="modal-close-row">
-      <button class="icon-button" aria-label="Close">×</button>
-    </form>
-    <div class="modal-inner">
-      <p class="eyebrow">SHARE A MOMENT</p>
-      <h2>Create a post</h2>
-      <p class="muted">Choose a photo and tell the community about it.</p>
-      <form id="postForm" class="stack">
-        <label>Photo
-          <input id="postImage" type="file" accept="image/*" required>
-        </label>
-        <div id="imagePreviewWrap" class="image-preview-wrap hidden">
-          <img id="imagePreview" alt="Selected image preview">
-        </div>
-        <label>Caption
-          <input id="postCaption" type="text" maxlength="120" required placeholder="Give your photo a title">
-        </label>
-        <label>Description
-          <textarea id="postDescription" rows="4" maxlength="2000" placeholder="Add a little story (optional)"></textarea>
-        </label>
-        <button id="publishBtn" class="button button-primary full" type="submit">Publish post</button>
-      </form>
-      <p id="postMessage" class="form-message" role="status"></p>
-    </div>
-  </dialog>
-
-  <dialog id="editProfileDialog" class="modal">
-    <form method="dialog" class="modal-close-row">
-      <button class="icon-button" aria-label="Close">×</button>
-    </form>
-    <div class="modal-inner">
-      <p class="eyebrow">YOUR ACCOUNT</p>
-      <h2>Edit profile</h2>
-      <form id="profileForm" class="stack">
-        <label>Display name
-          <input id="profileNameInput" type="text" maxlength="40" required>
-        </label>
-        <label>About you
-          <textarea id="profileBioInput" rows="3" maxlength="240" placeholder="A few words about yourself"></textarea>
-        </label>
-        <button class="button button-primary full" type="submit">Save profile</button>
-      </form>
-      <p id="profileMessage" class="form-message" role="status"></p>
-    </div>
-  </dialog>
-
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
-  <footer>
-    <span>© <span id="year"></span> Photoshop</span>
-    <span>Share respectfully. Keep your account secure.</span>
-  </footer>
-</body>
-</html>
+## Current limitations to plan for
+- This starter does not yet include admin/moderation dashboard, comments, likes, reporting, password reset UI, social login, image deletion from Storage on post deletion, rate limiting, or automated content moderation.
+- Public images are publicly viewable by URL. The `private` post visibility restricts database row visibility, but files are stored in a public bucket for this starter; therefore private image URLs are not truly private. For genuine private images, use a private bucket and signed URLs before production.
+- Date field is a user-chosen display date; actual `created_at` remains server-generated.
+- Supabase free/paid quotas and hosting limits apply. Large traffic may require a paid plan.
