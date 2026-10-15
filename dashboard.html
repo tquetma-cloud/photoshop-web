@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050d1a"><title>Home — Photoshop</title><link rel="stylesheet" href="styles.css">
+</head>
+<body class="app-body">
+  <header class="topbar app-topbar">
+    <a class="brand" href="dashboard.html"><span class="brand-icon">◉</span><span>Photo<span>shop</span></span></a>
+    <label class="searchbox"><span>⌕</span><input id="global-search" type="search" placeholder="Search photos, albums, or users..."></label>
+    <div class="top-user"><button class="icon-btn" aria-label="Notifications">♧</button><span class="avatar" id="header-avatar">DT</span><span id="header-name">Your Profile</span><button id="logout-btn" class="btn btn-ghost btn-small">Log out</button></div>
+  </header>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="side-label">MENU</div>
+      <a class="side-link active" href="dashboard.html"><span>⌂</span> Home</a>
+      <a class="side-link" href="#gallery"><span>◉</span> Explore</a>
+      <a class="side-link" href="#albums"><span>▣</span> Albums</a>
+      <a class="side-link" href="#gallery"><span>♡</span> Favorites</a>
+      <a class="side-link" href="create.html"><span>＋</span> Create a Post</a>
+      <a class="side-link" href="#my-posts"><span>▤</span> My Photos</a>
+      <div class="side-label side-label-spaced">CATEGORIES</div>
+      <a class="side-link category-filter" data-category="Nature" href="#gallery"><span>✦</span> Nature</a>
+      <a class="side-link category-filter" data-category="City" href="#gallery"><span>▥</span> City</a>
+      <a class="side-link category-filter" data-category="Animals" href="#gallery"><span>♧</span> Animals</a>
+      <a class="side-link category-filter" data-category="Travel" href="#gallery"><span>➤</span> Travel</a>
+      <div class="premium-card"><div class="premium-mark">✦</div><h3>Make room for more</h3><p>Build your own visual collection and share it with the world.</p><a href="create.html" class="btn btn-primary btn-small">Create a post →</a></div>
+    </aside>
+    <main class="main-content">
+      <section class="hero-banner">
+        <div class="hero-content"><div class="eyebrow">SHARE YOUR MOMENTS</div><h1>Better <span>Photos.</span><br>Bigger Stories.</h1><p>Upload, share, and discover amazing photos from a creative community.</p><div class="hero-actions"><a class="btn btn-primary" href="create.html">☁ Upload Photo</a><a class="btn btn-outline" href="#gallery">◎ Explore Gallery</a></div></div>
+        <div class="hero-script">Capture<br>the good times <span>♡</span></div>
+      </section>
+      <section class="section-head" id="gallery"><div><div class="eyebrow">FRESH INSPIRATION</div><h2>Discover photos</h2></div><div class="gallery-controls"><select id="category-select" aria-label="Filter by category"><option value="All">All categories</option><option>Nature</option><option>City</option><option>Animals</option><option>Travel</option><option>Art</option></select><select id="sort-select" aria-label="Sort photos"><option value="latest">Latest</option><option value="popular">Most popular</option></select></div></section>
+      <div id="gallery-grid" class="photo-grid"></div>
+      <section class="section-head album-head" id="albums"><div><div class="eyebrow">CURATED COLLECTIONS</div><h2>Featured albums</h2></div><a href="#albums" class="link-blue">View all →</a></section>
+      <div class="album-grid">
+        <a href="#gallery" class="album-card" style="--album-img:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80')"><span>Nature Escapes</span><small>24 photos</small></a>
+        <a href="#gallery" class="album-card" style="--album-img:url('https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=80')"><span>After Dark</span><small>18 photos</small></a>
+        <a href="#gallery" class="album-card" style="--album-img:url('https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=700&q=80')"><span>Small Wonders</span><small>32 photos</small></a>
+      </div>
+      <footer class="app-footer">© <span id="year"></span> Photoshop · Share what inspires you.</footer>
+    </main>
+    <aside class="rightbar">
+      <div class="widget"><div class="widget-heading"><h3>Trending Now</h3><a href="#gallery">View all →</a></div><div class="trend-list" id="trending-list"></div></div>
+      <div class="widget"><div class="widget-heading"><h3>Top Contributors</h3><a href="#gallery">View all →</a></div><div class="contributor"><span class="avatar avatar-1">AC</span><div><b>Alex Carter</b><small>1.2k photos</small></div><span class="crown">♛</span></div><div class="contributor"><span class="avatar avatar-2">SL</span><div><b>Sophia Lee</b><small>986 photos</small></div></div><div class="contributor"><span class="avatar avatar-3">DS</span><div><b>Daniel Smith</b><small>754 photos</small></div></div></div>
+      <div class="widget join-widget"><span class="join-icon">◉</span><div><h3>Have a story to share?</h3><p>Create a post and inspire someone today.</p><a class="btn btn-primary btn-small" href="create.html">Create Post →</a></div></div>
+    </aside>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

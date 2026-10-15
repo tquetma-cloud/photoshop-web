@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#050d1a">
+  <title>Create a Post — Photoshop</title><link rel="stylesheet" href="styles.css">
+</head>
+<body class="app-body">
+  <header class="topbar app-topbar"><a class="brand" href="dashboard.html"><span class="brand-icon">◉</span><span>Photo<span>shop</span></span></a><label class="searchbox"><span>⌕</span><input id="global-search" type="search" placeholder="Search photos, albums, or users..."></label><div class="top-user"><span class="avatar" id="header-avatar">DT</span><span id="header-name">Your Profile</span><button id="logout-btn" class="btn btn-ghost btn-small">Log out</button></div></header>
+  <div class="app-shell">
+    <aside class="sidebar"><div class="side-label">MENU</div><a class="side-link" href="dashboard.html"><span>⌂</span> Home</a><a class="side-link" href="dashboard.html#gallery"><span>◉</span> Explore</a><a class="side-link" href="dashboard.html#albums"><span>▣</span> Albums</a><a class="side-link active" href="create.html"><span>＋</span> Create a Post</a><a class="side-link" href="dashboard.html#gallery"><span>▤</span> My Photos</a><div class="premium-card"><div class="premium-mark">✦</div><h3>Your creative space</h3><p>Tell a story, share a moment, or publish your latest photo set.</p></div></aside>
+    <main class="main-content create-main">
+      <div class="page-title-row"><div><div class="eyebrow">YOUR CREATIVE SPACE</div><h1>Create a Post</h1><p>Share a moment, a story, or a photo collection with the community.</p></div><a class="btn btn-outline" href="dashboard.html">← Back to Home</a></div>
+      <form id="post-form" class="create-layout">
+        <div class="create-column">
+          <section class="panel">
+            <div class="panel-heading"><h2>Post details</h2><span class="required-note">* Required fields</span></div>
+            <label class="field-label">Post title <span>*</span><input id="post-title" name="title" required maxlength="100" placeholder="Give your post a clear, engaging title"><small class="field-help"><span id="title-count">0</span>/100 characters</small></label>
+            <label class="field-label">Description <span>*</span><textarea id="post-description" name="description" required maxlength="2000" rows="6" placeholder="Tell the story behind your photos..."></textarea><small class="field-help"><span id="description-count">0</span>/2000 characters</small></label>
+            <div class="two-fields"><label class="field-label">Category <span>*</span><select id="post-category" name="category" required><option value="">Choose a category</option><option>Nature</option><option>City</option><option>Animals</option><option>Travel</option><option>People</option><option>Art</option><option>Technology</option><option>Lifestyle</option><option>Other</option></select></label><label class="field-label">Album <select id="post-album" name="album"><option value="">No album</option><option>Nature Escapes</option><option>After Dark</option><option>Small Wonders</option><option>Travel Journal</option></select></label></div>
+            <label class="field-label">Tags <input id="post-tags" name="tags" placeholder="e.g. sunset, landscape, travel"><small class="field-help">Separate tags with commas.</small></label>
+          </section>
+          <section class="panel">
+            <div class="panel-heading"><h2>Photos and media</h2><span class="required-note">JPG, PNG, WEBP</span></div>
+            <label class="upload-zone" for="post-images"><span class="upload-cloud">☁</span><strong>Drag and drop photos here</strong><span>or <u>browse files</u></span><small>Choose multiple images · Max 10 MB per image</small><input id="post-images" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden></label>
+            <div id="selected-images" class="selected-images"></div>
+            <label class="field-label cover-label">Cover image <select id="cover-select" name="cover"><option value="">Use first uploaded image</option></select></label>
+          </section>
+          <section class="panel">
+            <div class="panel-heading"><h2>Post settings</h2></div>
+            <div class="two-fields"><label class="field-label">Visibility<select id="post-visibility"><option value="Public">Public — everyone can view</option><option value="Unlisted">Unlisted — link only</option><option value="Private">Private — only you</option></select></label><label class="field-label">Comments<select id="post-comments"><option value="enabled">Allow comments</option><option value="disabled">Turn off comments</option></select></label></div>
+          </section>
+        </div>
+        <aside class="preview-column">
+          <section class="panel preview-panel"><div class="panel-heading"><h2>Live preview</h2><span class="live-dot">● LIVE</span></div><div id="preview-image" class="preview-image"><span>Your cover image will appear here</span></div><div class="preview-meta"><span class="avatar" id="preview-avatar">DT</span><div><b id="preview-author">Your name</b><small>Just now · <span id="preview-visibility">Public</span></small></div></div><h3 id="preview-title">Your post title</h3><p id="preview-description">Your description will appear here as you type.</p><div id="preview-tags" class="tag-row"></div></section>
+          <section class="panel tip-panel"><div class="tip-icon">✦</div><h3>Tips for a great post</h3><ul><li>Choose a descriptive title.</li><li>Add context to tell your story.</li><li>Use relevant tags to help people find your post.</li><li>Upload clear, high-quality photos.</li></ul></section>
+          <div class="publish-actions"><button type="button" id="save-draft" class="btn btn-outline btn-wide">Save Draft</button><button type="submit" class="btn btn-primary btn-wide">Publish Post →</button><div id="post-message" class="alert hidden"></div></div>
+        </aside>
+      </form>
+      <footer class="app-footer">© <span id="year"></span> Photoshop · Create something worth sharing.</footer>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

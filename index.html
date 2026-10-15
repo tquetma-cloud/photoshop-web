@@ -1,110 +1,58 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Photoshop — Share Your Moments</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      color: #172033;
-    }
-    header {
-      background: #101827;
-      color: white;
-      padding: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .logo { font-size: 23px; font-weight: bold; }
-    .hero {
-      background: linear-gradient(135deg,#142d53,#1676d2);
-      color: white;
-      text-align: center;
-      padding: 65px 20px;
-    }
-    .hero h1 { font-size: 34px; }
-    .hero p { line-height: 1.6; }
-    .search {
-      width: 100%;
-      max-width: 500px;
-      padding: 15px;
-      border: 0;
-      border-radius: 12px;
-      font-size: 16px;
-    }
-    main { padding: 22px; max-width: 1100px; margin: auto; }
-    .photos {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(145px,1fr));
-      gap: 14px;
-    }
-    .photo {
-      background: white;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 4px 16px #17203312;
-    }
-    .photo img { width: 100%; height: 165px; object-fit: cover; }
-    .photo p { padding: 0 12px; font-weight: bold; }
-    .upload {
-      display: inline-block;
-      margin-top: 12px;
-      background: #1680f8;
-      color: white;
-      padding: 13px 20px;
-      border-radius: 10px;
-      text-decoration: none;
-    }
-    footer { text-align: center; padding: 28px; color: #687386; }
-  </style>
+  <meta name="theme-color" content="#050d1a">
+  <title>Photoshop — Share your moments</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <header>
-    <div class="logo">◉ Photoshop</div>
-    <div>Explore　 Albums　 Profile</div>
+<body class="auth-body">
+  <div class="auth-backdrop"></div>
+  <header class="topbar auth-topbar">
+    <a class="brand" href="index.html"><span class="brand-icon">◉</span><span>Photo<span>shop</span></span></a>
+    <nav class="auth-nav"><a href="#features">Explore</a><a href="#features">Albums</a><a href="#features">About</a></nav>
+    <div class="auth-actions"><button class="btn btn-ghost" data-auth-view="login">Log In</button><button class="btn btn-primary" data-auth-view="signup">Sign Up</button></div>
   </header>
-  <section class="hero">
-    <h1>Share Your Best Moments</h1>
-    <p>Discover beautiful photos and share your creativity.</p>
-    <input class="search" id="search" placeholder="Search photos...">
-    <br>
-    <a class="upload" href="#photos">Explore Photos</a>
-  </section>
-  <main>
-    <h2>Trending Photos</h2>
-    <div class="photos" id="photos">
-      <article class="photo">
-        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600" alt="Nature">
-        <p>Nature Escape</p>
-      </article>
-      <article class="photo">
-        <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600" alt="City">
-        <p>City Lights</p>
-      </article>
-      <article class="photo">
-        <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600" alt="Mountain">
-        <p>Mountain View</p>
-      </article>
-      <article class="photo">
-        <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=600" alt="Wildlife">
-        <p>Wildlife</p>
-      </article>
-    </div>
+
+  <main class="auth-layout">
+    <section class="auth-intro">
+      <div class="eyebrow"><span class="pulse-dot"></span> A home for your best moments</div>
+      <h1>Better photos.<br><span>Bigger stories.</span></h1>
+      <p class="intro-copy">Discover inspiring photography, organize your albums, and share the moments worth remembering.</p>
+      <div class="feature-row" id="features">
+        <div class="feature"><span class="feature-icon">▧</span><div><b>Your gallery</b><small>All your moments in one place</small></div></div>
+        <div class="feature"><span class="feature-icon">↗</span><div><b>Share with ease</b><small>Bring your stories to life</small></div></div>
+        <div class="feature"><span class="feature-icon">◇</span><div><b>Made for creators</b><small>A community for visual ideas</small></div></div>
+      </div>
+      <div class="auth-landscape"><div class="landscape-caption">CAPTURE THE GOOD TIMES <span>✦</span></div></div>
+    </section>
+
+    <section class="auth-card glass">
+      <div class="auth-tabs"><button class="auth-tab active" data-auth-view="login">Log In</button><button class="auth-tab" data-auth-view="signup">Create Account</button></div>
+      <div id="auth-alert" class="alert hidden" role="status"></div>
+      <form id="login-form" class="auth-form">
+        <div class="form-heading"><h2>Welcome back</h2><p>Log in to continue to Photoshop.</p></div>
+        <label>Email or username<input name="identity" type="text" placeholder="you@example.com" autocomplete="username" required></label>
+        <label>Password<input name="password" type="password" placeholder="Enter your password" autocomplete="current-password" minlength="6" required></label>
+        <div class="form-between"><label class="check-label"><input type="checkbox" name="remember" checked> Remember me</label><a href="#" id="forgot-link">Forgot password?</a></div>
+        <button class="btn btn-primary btn-wide" type="submit">Log In <span>→</span></button>
+        <div class="auth-switch">Don't have an account? <button type="button" class="text-button" data-auth-view="signup">Sign up</button></div>
+      </form>
+      <form id="signup-form" class="auth-form hidden">
+        <div class="form-heading"><h2>Create your account</h2><p>Join the community and share your perspective.</p></div>
+        <label>Full name<input name="name" type="text" placeholder="Your name" autocomplete="name" required maxlength="60"></label>
+        <label>Email address<input name="email" type="email" placeholder="you@example.com" autocomplete="email" required></label>
+        <label>Username<input name="username" type="text" placeholder="Choose a username" autocomplete="username" required minlength="3" maxlength="24" pattern="[A-Za-z0-9_]+" title="Use letters, numbers, and underscores only"></label>
+        <label>Password<input name="password" type="password" placeholder="At least 6 characters" autocomplete="new-password" minlength="6" required></label>
+        <label class="check-label terms"><input type="checkbox" required> I agree to the <a href="#" class="terms-link">Terms of Service</a></label>
+        <button class="btn btn-primary btn-wide" type="submit">Create Account <span>→</span></button>
+        <div class="auth-switch">Already have an account? <button type="button" class="text-button" data-auth-view="login">Log in</button></div>
+      </form>
+      <p class="auth-footnote">By continuing, you agree to our community guidelines.</p>
+    </section>
   </main>
-  <footer>© 2026 Photoshop · Share your creativity</footer>
-  <script>
-    document.getElementById('search').addEventListener('input', function() {
-      const q = this.value.toLowerCase();
-      document.querySelectorAll('.photo').forEach(function(card) {
-        card.style.display = card.innerText.toLowerCase().includes(q) ? '' : 'none';
-      });
-    });
-  </script>
+  <footer class="auth-footer">© <span id="year"></span> Photoshop Community <span>•</span> Made for people who see the world differently.</footer>
+  <script src="app.js"></script>
 </body>
 </html>
-  
