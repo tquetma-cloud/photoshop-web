@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Photoshop — Share Your Moments</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+    }
+    header {
+      background: #101827;
+      color: white;
+      padding: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { font-size: 23px; font-weight: bold; }
+    .hero {
+      background: linear-gradient(135deg,#142d53,#1676d2);
+      color: white;
+      text-align: center;
+      padding: 65px 20px;
+    }
+    .hero h1 { font-size: 34px; }
+    .hero p { line-height: 1.6; }
+    .search {
+      width: 100%;
+      max-width: 500px;
+      padding: 15px;
+      border: 0;
+      border-radius: 12px;
+      font-size: 16px;
+    }
+    main { padding: 22px; max-width: 1100px; margin: auto; }
+    .photos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(145px,1fr));
+      gap: 14px;
+    }
+    .photo {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px #17203312;
+    }
+    .photo img { width: 100%; height: 165px; object-fit: cover; }
+    .photo p { padding: 0 12px; font-weight: bold; }
+    .upload {
+      display: inline-block;
+      margin-top: 12px;
+      background: #1680f8;
+      color: white;
+      padding: 13px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+    }
+    footer { text-align: center; padding: 28px; color: #687386; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">◉ Photoshop</div>
+    <div>Explore　 Albums　 Profile</div>
+  </header>
+  <section class="hero">
+    <h1>Share Your Best Moments</h1>
+    <p>Discover beautiful photos and share your creativity.</p>
+    <input class="search" id="search" placeholder="Search photos...">
+    <br>
+    <a class="upload" href="#photos">Explore Photos</a>
+  </section>
+  <main>
+    <h2>Trending Photos</h2>
+    <div class="photos" id="photos">
+      <article class="photo">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600" alt="Nature">
+        <p>Nature Escape</p>
+      </article>
+      <article class="photo">
+        <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600" alt="City">
+        <p>City Lights</p>
+      </article>
+      <article class="photo">
+        <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600" alt="Mountain">
+        <p>Mountain View</p>
+      </article>
+      <article class="photo">
+        <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=600" alt="Wildlife">
+        <p>Wildlife</p>
+      </article>
+    </div>
+  </main>
+  <footer>© 2026 Photoshop · Share your creativity</footer>
+  <script>
+    document.getElementById('search').addEventListener('input', function() {
+      const q = this.value.toLowerCase();
+      document.querySelectorAll('.photo').forEach(function(card) {
+        card.style.display = card.innerText.toLowerCase().includes(q) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
+  
